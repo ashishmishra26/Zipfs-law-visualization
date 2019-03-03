@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import FusionCharts from 'fusioncharts/core';
-import Msline from 'fusioncharts/viz/msline';
-import ReactFC from 'react-fusioncharts';
+import Header from './components/Header';
+import Content from './components/Content';
 
 const data = require('./words.json');
-
-ReactFC.fcRoot(FusionCharts, Msline);
 
 class App extends Component {
   constructor(props) {
@@ -20,27 +17,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <div className="header">
-         <p>Zip'f law visualisation</p>
-       </div>
-       <div className="content">
-        <div className="description">
-          <p>
-          Zipf's law is an empirical law formulated using mathematical statistics. The law is named after the linguist George Kingsley Zipf, who first proposed it.<br></br>
-          Zipf's law states that given a large sample of words used, the frequency of any word is inversely proportional to its rank in the frequency table. So word number n has a frequency proportional to 1/n.
-          </p>
-        </div>
-         <div id="chart-container">
-         <ReactFC {...{
-            type: 'msline',
-            width: '900',
-            height: '500',
-            dataFormat: 'json',
-            dataEmptyMessage: '',
-            dataSource: this.state.datasource
-          }}/> 
-         </div>
-       </div>
+       <Header />
+       <Content datasource={this.state.datasource}/>
       </div>
     );
   }
