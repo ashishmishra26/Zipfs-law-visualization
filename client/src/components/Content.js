@@ -7,7 +7,7 @@ ReactFC.fcRoot(FusionCharts, Msline);
 
 export default class Content extends Component {
   render() {
-    let { datasource } = this.props; 
+    let { datasource, handleNumnberOfWords } = this.props; 
     return (
         <div className="content">
             <div className="description">
@@ -16,10 +16,15 @@ export default class Content extends Component {
               Zipf's law states that given a large sample of words used, the frequency of any word is inversely proportional to its rank in the frequency table. So word number n has a frequency proportional to 1/n.
               </p>
             </div>
+            <div>
+                <p className="text-box-header">Enter Number of Frequent Words</p>
+                <input className="text-box" type="number" max="100" min="10" defaultValue="20" onBlur={(e) => { handleNumnberOfWords(e)}}></input>
+                <p className="text-box-header">(click outside to apply)</p>
+            </div>
              <div id="chart-container">
              <ReactFC {...{
                 type: 'msline',
-                width: '900',
+                width: '1200',
                 height: '500',
                 dataFormat: 'json',
                 dataEmptyMessage: '',

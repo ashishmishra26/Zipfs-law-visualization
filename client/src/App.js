@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <div className="App">
        <Header />
-       <Content datasource={this.state.datasource}/>
+       <Content datasource={this.state.datasource} handleNumnberOfWords={this.handleNumnberOfWords}/>
       </div>
     );
   }
@@ -38,12 +38,12 @@ class App extends Component {
         return b[1] - a[1];
     });
 
-    this.setState({frequencyArr: sortedFreaquency});
-    this.generateDataSource(sortedFreaquency);
+    this.setState({frequencyArr: sortedFreaquency}, this.generateDataSource);
+    
   }
 
-  generateDataSource(rawData) {
-    rawData = rawData.slice(0, this.state.numberOfWords);
+  generateDataSource() {
+    let rawData = this.state.frequencyArr.slice(0, this.state.numberOfWords);
     let datasource = {}, categories, category = [], dataset = [], data_1 = [], data_2 = [];
     datasource.chart = {
       "paletteColors": "#0075c2,#1aaf5d,#f2c500,#f45b00,#8e0000,#0e948c,#8cbb2c,#f3de00",
@@ -55,6 +55,7 @@ class App extends Component {
       "baseFontColor": "#333333",
       "baseFont": "Helvetica Neue,Arial",
       "captionFontSize": "14",
+      "baseFontSize": "12",
       "subcaptionFontSize": "14",
       "subcaptionFontBold": "0",
       "showBorder": "0",
@@ -97,7 +98,10 @@ class App extends Component {
       "yAxisLineThickness": "1",
       "yAxisLineColor": "#999999",
       "canvasBgAlpha": "100",
-      "bgAlpha": "100"
+      "bgAlpha": "100",
+      "showValues": "0",
+      "drawCrossline": "1",
+      "crosslineColor": "#2A2A2A"
     };
     rawData.forEach((word, index) => {
       category.push({
@@ -126,6 +130,17 @@ class App extends Component {
     datasource.dataset = dataset;
     
     this.setState({datasource: JSON.stringify(datasource, null, 4)});
+  }
+
+  handleNumnberOfWords = (event) => {
+    let numberOfWords = event.target.value;
+    if (numberOfWords < 10) {
+      numberOfWords = 10;
+    }  else if (numberOfWords > 100) {
+      numberOfWords = 100
+    }
+    event.target.value = numberOfWords;
+    this.setState({numberOfWords}, this.generateDataSource);
   }
 }
 

@@ -29,14 +29,31 @@
 }
 
 #chart-container {
-  width: 900px;
+  width: 1200px;
   height: 500px;
   background-color: #EFE9F4;
-  margin-top: 10vh;
 }
 
 .description {
   font-size: 15px;
   padding: 10px;
   font-weight: 500;
+}
+
+.text-box {
+  width: 50px;
+  height: 20px;
+  text-align: center;
+  border: 2px solid #3a2268;
+  border-radius: 5px;
+  outline: none;
+  font-weight: 500;
+  font-size: 15px;
+  color: #4717a1;
+}
+
+.text-box-header{
+  font-size: 14px;
+  font-weight: 500;
+  color: #3a2268;
 }

@@ -3,6 +3,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 In the project directory, you can run:
+### `npm run scrap`
+
+To Scrap the data from wikipedia and store words extracted in src/words.json file 
 
 ### `npm start`
 
