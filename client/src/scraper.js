@@ -1,16 +1,15 @@
+const fs = require('fs');
 const puppeteer = require('puppeteer');
-const topics = ['cricket', 'football', 'bollywood', 'hollywood', 'life'];
+const topics = ['cricket', 'football', 'bollywood', 'hollywood', 'life', 'sex', 'india', 'science', 'existence', 'reality', 'geography', 'history', 'javascript'];
 
-function scrap() {
-    (async () => {
+async function scrap() {
+    await (async () => {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
 
         let text = [],
             wordArr = [],
             pureWordArr = [],
-            frequency = [],
-            sortedFreaquency = [],
             paragraph;
 
         for (let topic of topics) {
@@ -24,8 +23,6 @@ function scrap() {
             text = [...text, ...paragraph];
         }
 
-
-
         text.forEach((sentence) => {
             (sentence !== null) && (wordArr = [...wordArr, ...sentence.split(' ')]);
         })
@@ -34,25 +31,8 @@ function scrap() {
             (word.replace(/[^A-Za-z]+/g, '')) && (pureWordArr = [...pureWordArr, word.replace(/[^A-Za-z]+/g, '').toLowerCase()]);
         })
 
-        pureWordArr.forEach(word => {
-            frequency[word] = frequency[word] ? frequency[word] + 1 : 1;
-        })
-
-        console.log(frequency);
-
-        for (var key in frequency) {
-            sortedFreaquency.push([key, frequency[key]]);
-        }
-
-        sortedFreaquency.sort(function(a, b) {
-            return b[1] - a[1];
-        });
-
+        fs.writeFileSync('words.json', JSON.stringify(pureWordArr, null, 4));
         await browser.close();
-
-        return sortedFreaquency;
     })();
 }
 scrap();
-
-module.exports = scrap;
